@@ -15,10 +15,14 @@ namespace Task1Tests
         /// A test for FindGCD method.
         /// </summary>
         [TestCase(9, 18, 27, 9, 81)]
+        [TestCase(9, 18, -27, 9, -81)]
         [TestCase(9, 18, 27, 9)]
         [TestCase(9, 18, 27)]
+        [TestCase(9, -18, 27)]
         [TestCase(9, 9, 9)]
-        public void FindGCD_ValidNumbers_9Returned(int expected, params int [] array)
+        [TestCase(9, 0, 9)]
+        [TestCase(1, 10, 11, 13)]
+        public void FindGCD_ValidNumbers_ValidReturned(int expected, params int [] array)
         {
             //act
             int actual = EuclideanAlgorithm.FindGCD(array);
@@ -39,9 +43,18 @@ namespace Task1Tests
         /// A test for FindGDC with only one number.
         /// </summary>
         [Test]
-        public void FindGCD_ArrayLengthIsLessThan2_TrowsArgumentException()
+        public void FindGCD_ArrayLengthIsLessThan2_TrowsArgumentOutOfRangeException()
         {
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.FindGCD(9));
+            Assert.Throws<ArgumentOutOfRangeException>(() => EuclideanAlgorithm.FindGCD(9));
+        }
+
+        /// <summary>
+        /// A test for FindGCD when every element of array = 0.
+        /// </summary>
+        [Test]
+        public void FindGCD_EveryElementOfArrayIs0_ThrowsArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.FindGCD(0, 0, 0));
         }
     }
 }

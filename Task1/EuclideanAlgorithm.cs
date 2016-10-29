@@ -19,7 +19,11 @@ namespace Task1
             }
             if (array.Length < 2)
             {
-                throw new ArgumentException("array.Lendth must be > 1.", nameof(array));
+                throw new ArgumentOutOfRangeException(nameof(array), "array.Lendth must be > 1.");
+            }
+            if (array.All(el => el==0))
+            {
+                throw new ArgumentException("Every element of array = 0.", nameof(array));
             }
             int result = array[0];
             for (int i = 1; i < array.Length; i++)
