@@ -11,7 +11,6 @@ namespace Task1
         /// <summary>
         /// Finds the greatest common divisor (GCD) of some numbers.
         /// </summary>
-        public static int FindGCD(int [] array)
         public static int FindGCD(params int[] array)
         {
             while (array[1] != 0)
