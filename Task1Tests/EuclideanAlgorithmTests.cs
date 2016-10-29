@@ -14,18 +14,34 @@ namespace Task1Tests
         /// <summary>
         /// A test for FindGCD method.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="expected"></param>
         [TestCase(9, 18, 27, 9, 81)]
         [TestCase(9, 18, 27, 9)]
         [TestCase(9, 18, 27)]
+        [TestCase(9, 9, 9)]
         public void FindGCD_ValidNumbers_9Returned(int expected, params int [] array)
         {
             //act
             int actual = EuclideanAlgorithm.FindGCD(array);
             //assert
             Assert.AreEqual(expected,actual);
+        }
+
+        /// <summary>
+        /// A test for FindGCD with null parameter.
+        /// </summary>
+        [Test]
+        public void FindGCD_ArrayIsNull_ThrowsArgumentNullException()
+        {
+            Assert.Throws < ArgumentNullException >(() => EuclideanAlgorithm.FindGCD(null));
+        }
+
+        /// <summary>
+        /// A test for FindGDC with only one number.
+        /// </summary>
+        [Test]
+        public void FindGCD_ArrayLengthIsLessThan2_TrowsArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.FindGCD(9));
         }
     }
 }

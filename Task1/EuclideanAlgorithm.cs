@@ -13,6 +13,14 @@ namespace Task1
         /// </summary>
         public static int FindGCD(params int[] array)
         {
+            if (array == null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+            if (array.Length < 2)
+            {
+                throw new ArgumentException("array.Lendth must be > 1.", nameof(array));
+            }
             int result = array[0];
             for (int i = 1; i < array.Length; i++)
             {
