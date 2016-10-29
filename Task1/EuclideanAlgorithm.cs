@@ -13,12 +13,8 @@ namespace Task1
         /// </summary>
         public static int FindGCD(params int[] array)
         {
-            while (array[1] != 0)
-            {
-                array[1] = array[0] % (array[0] = array[1]);
-            }
             int result = array[0];
-            for (int i = 2; i < array.Length; i++)
+            for (int i = 1; i < array.Length; i++)
             {
                 while (array[i] != 0)
                 {

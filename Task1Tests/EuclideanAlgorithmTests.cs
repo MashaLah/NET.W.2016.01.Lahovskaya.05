@@ -17,8 +17,10 @@ namespace Task1Tests
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="expected"></param>
-        [TestCase(9,18, 27, 9, 81)]
-        public void FindGCD_18and27and9and81_9Returned(int expected, params int [] array)
+        [TestCase(9, 18, 27, 9, 81)]
+        [TestCase(9, 18, 27, 9)]
+        [TestCase(9, 18, 27)]
+        public void FindGCD_ValidNumbers_9Returned(int expected, params int [] array)
         {
             //act
             int actual = EuclideanAlgorithm.FindGCD(array);
