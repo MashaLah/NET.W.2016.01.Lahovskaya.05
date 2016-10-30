@@ -20,13 +20,13 @@ namespace Task2Tests
             //arrange
             int[][] jArray =
             {
-                new int[] {-1, 2},
+                new int[] {-1},
                 new int[] {3, 3, 5, 6, 0},
                 new int[] {1, 2, 3}
             };
             int[][] expected =
             {
-                new int[] {-1, 2},
+                new int[] {-1},
                 new int[] {1, 2, 3},
                 new int[] {3, 3, 5, 6, 0}
             };
@@ -70,13 +70,13 @@ namespace Task2Tests
             //arrange
             int[][] jArray =
             {
-                new int[] {-1, 2},
+                new int[] {-1},
                 new int[] {3, 3, 5, 6},
                 new int[] {2, 3, 0}
             };
             int[][] expected =
             {
-                new int[] {-1, 2},
+                new int[] {-1},
                 new int[] {2, 3, 0},
                 new int[] {3, 3, 5, 6}
             };
