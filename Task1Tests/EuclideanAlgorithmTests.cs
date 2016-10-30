@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Task1;
+using System.Diagnostics;
 
 namespace Task1Tests
 {
@@ -25,9 +26,12 @@ namespace Task1Tests
         [TestCase(1, 10, 1, 13)]
         public void FindGCD_ValidNumbers_ValidReturned(int expected, params int [] array)
         {
+            //arrange
+            long time;
             //act
-            int actual = EuclideanAlgorithm.FindGCD(array);
+            int actual = EuclideanAlgorithm.FindGCD(out time, array);
             //assert
+            Debug.WriteLine($"Run time: {time}");
             Assert.AreEqual(expected,actual);
         }
 
@@ -37,7 +41,8 @@ namespace Task1Tests
         [Test]
         public void FindGCD_ArrayIsNull_ThrowsArgumentNullException()
         {
-            Assert.Throws < ArgumentNullException >(() => EuclideanAlgorithm.FindGCD(null));
+            long time;
+            Assert.Throws < ArgumentNullException >(() => EuclideanAlgorithm.FindGCD(out time, null));
         }
 
         /// <summary>
@@ -46,7 +51,8 @@ namespace Task1Tests
         [Test]
         public void FindGCD_ArrayLengthIsLessThan2_TrowsArgumentOutOfRangeException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => EuclideanAlgorithm.FindGCD(9));
+            long time;
+            Assert.Throws<ArgumentOutOfRangeException>(() => EuclideanAlgorithm.FindGCD(out time, 9));
         }
 
         /// <summary>
@@ -55,7 +61,8 @@ namespace Task1Tests
         [Test]
         public void FindGCD_EveryElementOfArrayIs0_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.FindGCD(0, 0, 0));
+            long time;
+            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.FindGCD(out time, 0, 0, 0));
         }
 
         /// <summary>
@@ -74,9 +81,12 @@ namespace Task1Tests
         [TestCase(2, 2, 4, 6)]
         public void CallStein_ValidArray_ValidResult(int expected, params int[] array)
         {
+            //arrange
+            long time;
             //act
-            int actual = EuclideanAlgorithm.CallStein(array);
+            int actual = EuclideanAlgorithm.CallStein(out time, array);
             //assert
+            Debug.WriteLine($"Run time: {time}");
             Assert.AreEqual(expected, actual);
         }
 
@@ -86,7 +96,8 @@ namespace Task1Tests
         [Test]
         public void CallStein_ArrayIsNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => EuclideanAlgorithm.CallStein(null));
+            long time;
+            Assert.Throws<ArgumentNullException>(() => EuclideanAlgorithm.CallStein(out time, null));
         }
 
         /// <summary>
@@ -95,7 +106,8 @@ namespace Task1Tests
         [Test]
         public void CallStein_ArrayLengthIsLessThan2_TrowsArgumentOutOfRangeException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => EuclideanAlgorithm.CallStein(9));
+            long time;
+            Assert.Throws<ArgumentOutOfRangeException>(() => EuclideanAlgorithm.CallStein(out time, 9));
         }
 
         /// <summary>
@@ -104,7 +116,8 @@ namespace Task1Tests
         [Test]
         public void CallStein_EveryElementOfArrayIs0_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.CallStein(0, 0, 0));
+            long time;
+            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.CallStein(out time, 0, 0, 0));
         }
     }
 }

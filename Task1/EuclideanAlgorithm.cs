@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +12,9 @@ namespace Task1
         /// <summary>
         /// Finds the greatest common divisor (GCD) of some numbers.
         /// </summary>
-        public static int FindGCD(params int[] array)
+        public static int FindGCD(out long time, params int[] array)
         {
+
             if (array == null)
             {
                 throw new ArgumentNullException(nameof(array));
@@ -28,6 +30,10 @@ namespace Task1
                 throw new ArgumentException("Every element of array = 0.", nameof(array));
             }
 
+            Stopwatch timer = new Stopwatch();
+
+            timer.Start();
+
             int result = array[0];
 
             for (int i = 1; i < array.Length; i++)
@@ -38,13 +44,17 @@ namespace Task1
                 }
             }
 
+            timer.Stop();
+
+            time = timer.ElapsedMilliseconds;
+
             return result;
         }
 
         /// <summary>
         /// Call FindGCDByStein with a lot of numbers.
         /// </summary>
-        public static int CallStein(params int[] array)
+        public static int CallStein(out long time, params int[] array)
         {
             if (array == null)
             {
@@ -61,8 +71,14 @@ namespace Task1
                 throw new ArgumentException("Every element of array = 0.", nameof(array));
             }
 
+            Stopwatch timer = new Stopwatch();
+
+            timer.Start();
+
             if (array.Any(el => el == 1))
             {
+                timer.Stop();
+                time = timer.ElapsedMilliseconds;
                 return 1;
             }
 
@@ -72,6 +88,10 @@ namespace Task1
             {
                 result = FindGCDByStein(result, array[i]);
             }
+
+            timer.Stop();
+
+            time = timer.ElapsedMilliseconds;
 
             return result;
         }
