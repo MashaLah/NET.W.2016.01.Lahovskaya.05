@@ -11,26 +11,29 @@ namespace Task2
         /// <summary>
         /// Sorts jagget array by rows sum.
         /// </summary>
+        /// <exception>
+        /// Neither jagged array nor nested array can be null and can have length = 0.
+        /// </exception>
         public static void SortSum(int[][] jaggedArr)
         {
             if (jaggedArr == null)
             {
-                throw new ArgumentNullException(nameof(jaggedArr));
+                throw new ArgumentNullException($"{nameof(jaggedArr)} is null");
             }
 
             if (jaggedArr.Length == 0)
             {
-                throw new ArgumentException("Can't sort because array's length = 0.", nameof(jaggedArr));
+                throw new ArgumentException($"Can't sort because {nameof(jaggedArr)} length = 0.");
             }
 
             if (jaggedArr.Any(el => el == null))
             {
-                throw new ArgumentNullException(nameof(jaggedArr), "Can't sort because nested array is null.");
+                throw new ArgumentNullException($"Can't sort because nested in {nameof(jaggedArr)} array is null.");
             }
 
             if (jaggedArr.Any(el => el.Length == 0))
             {
-                throw new ArgumentException("Can't sort because nested array's length = 0.", nameof(jaggedArr));
+                throw new ArgumentException($"Can't sort because nested in {nameof(jaggedArr)} array length = 0.");
             }
 
             for (int i = 0; i < jaggedArr.Length; i++)
@@ -50,26 +53,29 @@ namespace Task2
         /// <summary>
         /// Sorts jagget array by rows max element.
         /// </summary>
+        /// <exception>
+        /// Neither jagged array nor nested array can be null and can have length = 0.
+        /// </exception>
         public static void SortMax(int[][] jaggedArr)
         {
             if (jaggedArr == null)
             {
-                throw new ArgumentNullException(nameof(jaggedArr));
+                throw new ArgumentNullException($"{nameof(jaggedArr)} is null.");
             }
 
             if (jaggedArr.Length == 0)
             {
-                throw new ArgumentException("Can't sort because array's length = 0.", nameof(jaggedArr));
+                throw new ArgumentException($"Can't sort because {nameof(jaggedArr)} length = 0.");
             }
 
             if (jaggedArr.Any(el => el == null))
             {
-                throw new ArgumentNullException(nameof(jaggedArr), "Can't sort because nested array is null.");
+                throw new ArgumentNullException($"Can't sort because nested in {nameof(jaggedArr)} array is null.");
             }
 
             if (jaggedArr.Any(el => el.Length == 0))
             {
-                throw new ArgumentException("Can't sort because nested array's length = 0.", nameof(jaggedArr));
+                throw new ArgumentException($"Can't sort because nested in {nameof(jaggedArr)} array length = 0.");
             }
 
             for (int i = 0; i < jaggedArr.Length; i++)
@@ -89,26 +95,29 @@ namespace Task2
         /// <summary>
         /// Sorts jagget array by rows min element.
         /// </summary>
+        /// <exception>
+        /// Neither jagged array nor nested array can be null and can have length = 0.
+        /// </exception>
         public static void SortMin(int[][] jaggedArr)
         {
             if (jaggedArr == null)
             {
-                throw new ArgumentNullException(nameof(jaggedArr));
+                throw new ArgumentNullException($"{nameof(jaggedArr)} is null.");
             }
 
             if (jaggedArr.Length == 0)
             {
-                throw new ArgumentException("Can't sort because array's length = 0.", nameof(jaggedArr));
+                throw new ArgumentException($"Can't sort because {nameof(jaggedArr)} length = 0.");
             }
 
             if (jaggedArr.Any(el => el == null))
             {
-                throw new ArgumentNullException(nameof(jaggedArr), "Can't sort because nested array is null.");
+                throw new ArgumentNullException($"Can't sort because nested in {nameof(jaggedArr)} array is null.");
             }
 
             if (jaggedArr.Any(el => el.Length == 0))
             {
-                throw new ArgumentException("Can't sort because nested array's length = 0.", nameof(jaggedArr));
+                throw new ArgumentException($"Can't sort because nested in {nameof(jaggedArr)} array length = 0.");
             }
 
             for (int i = 0; i < jaggedArr.Length; i++)

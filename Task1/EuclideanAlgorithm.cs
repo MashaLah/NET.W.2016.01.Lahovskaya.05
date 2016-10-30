@@ -12,22 +12,25 @@ namespace Task1
         /// <summary>
         /// Finds the greatest common divisor (GCD) of some numbers.
         /// </summary>
+        /// <exception>
+        /// Array can't be null and can't contain only 0 and must be longer than 1.
+        /// </exception>
         public static int FindGCD(out long time, params int[] array)
         {
 
             if (array == null)
             {
-                throw new ArgumentNullException(nameof(array));
+                throw new ArgumentNullException($"{nameof(array)} is null.");
             }
 
             if (array.Length < 2)
             {
-                throw new ArgumentOutOfRangeException(nameof(array), "array.Lendth must be > 1.");
+                throw new ArgumentOutOfRangeException($"{nameof(array)}array.Lendth must be > 1.");
             }
 
             if (array.All(el => el==0))
             {
-                throw new ArgumentException("Every element of array = 0.", nameof(array));
+                throw new ArgumentException($"Every element of {nameof(array)} = 0.");
             }
 
             Stopwatch timer = new Stopwatch();
@@ -54,21 +57,24 @@ namespace Task1
         /// <summary>
         /// Call FindGCDByStein with a lot of numbers.
         /// </summary>
+        /// <exception>
+        /// Array can't be null and can't contain only 0 and must be longer than 1.
+        /// </exception>
         public static int CallStein(out long time, params int[] array)
         {
             if (array == null)
             {
-                throw new ArgumentNullException(nameof(array));
+                throw new ArgumentNullException($"{nameof(array)} is null.");
             }
 
             if (array.Length < 2)
             {
-                throw new ArgumentOutOfRangeException(nameof(array), "array.Lendth must be > 1.");
+                throw new ArgumentOutOfRangeException($"{nameof(array)} lendth must be > 1.");
             }
 
             if (array.All(el => el == 0))
             {
-                throw new ArgumentException("Every element of array = 0.", nameof(array));
+                throw new ArgumentException($"Every element of {nameof(array)} = 0.");
             }
 
             Stopwatch timer = new Stopwatch();
