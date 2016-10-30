@@ -9,12 +9,36 @@ namespace Task2
     public static class BubbleSort
     {
         /// <summary>
-        /// Sorts jagget array by rows sum.
+        /// Sorts jagget array by row's sum.
+        /// </summary>
+        public static void SortSum(int[][] jaggedArr)
+        {
+            Sort(jaggedArr, sortBySum);
+        }
+
+        /// <summary>
+        /// Sorts jagget array by row's max element.
+        /// </summary>
+        public static void SortMax(int[][] jaggedArr)
+        {
+            Sort(jaggedArr, sortByMax);
+        }
+
+        /// <summary>
+        /// Sorts jagget array by row's min element.
+        /// </summary>
+        public static void SortMin(int[][] jaggedArr)
+        {
+            Sort(jaggedArr, sortByMin);
+        }
+
+        /// <summary>
+        /// Sorts jagget array.
         /// </summary>
         /// <exception>
         /// Neither jagged array nor nested array can be null and can have length = 0.
         /// </exception>
-        public static void SortSum(int[][] jaggedArr)
+        private static void Sort(int[][] jaggedArr, Func<int[],int> sortingFunction)
         {
             if (jaggedArr == null)
             {
@@ -40,7 +64,7 @@ namespace Task2
             {
                 for (int j = 0; j < jaggedArr.Length - i - 1; j++)
                 {
-                    if (FindSum(jaggedArr[j]) > FindSum(jaggedArr[j + 1]))
+                    if (sortingFunction(jaggedArr[j]) > sortingFunction(jaggedArr[j + 1]))
                     {
                         int[] temp = jaggedArr[j];
                         jaggedArr[j] = jaggedArr[j + 1];
@@ -50,89 +74,9 @@ namespace Task2
             }
         }
 
-        /// <summary>
-        /// Sorts jagget array by rows max element.
-        /// </summary>
-        /// <exception>
-        /// Neither jagged array nor nested array can be null and can have length = 0.
-        /// </exception>
-        public static void SortMax(int[][] jaggedArr)
-        {
-            if (jaggedArr == null)
-            {
-                throw new ArgumentNullException($"{nameof(jaggedArr)} is null.");
-            }
-
-            if (jaggedArr.Length == 0)
-            {
-                throw new ArgumentException($"Can't sort because {nameof(jaggedArr)} length = 0.");
-            }
-
-            if (jaggedArr.Any(el => el == null))
-            {
-                throw new ArgumentNullException($"Can't sort because nested in {nameof(jaggedArr)} array is null.");
-            }
-
-            if (jaggedArr.Any(el => el.Length == 0))
-            {
-                throw new ArgumentException($"Can't sort because nested in {nameof(jaggedArr)} array length = 0.");
-            }
-
-            for (int i = 0; i < jaggedArr.Length; i++)
-            {
-                for (int j = 0; j < jaggedArr.Length - i - 1; j++)
-                {
-                    if (FindMax(jaggedArr[j]) > FindMax(jaggedArr[j + 1]))
-                    {
-                        int[] temp = jaggedArr[j];
-                        jaggedArr[j] = jaggedArr[j + 1];
-                        jaggedArr[j + 1] = temp;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Sorts jagget array by rows min element.
-        /// </summary>
-        /// <exception>
-        /// Neither jagged array nor nested array can be null and can have length = 0.
-        /// </exception>
-        public static void SortMin(int[][] jaggedArr)
-        {
-            if (jaggedArr == null)
-            {
-                throw new ArgumentNullException($"{nameof(jaggedArr)} is null.");
-            }
-
-            if (jaggedArr.Length == 0)
-            {
-                throw new ArgumentException($"Can't sort because {nameof(jaggedArr)} length = 0.");
-            }
-
-            if (jaggedArr.Any(el => el == null))
-            {
-                throw new ArgumentNullException($"Can't sort because nested in {nameof(jaggedArr)} array is null.");
-            }
-
-            if (jaggedArr.Any(el => el.Length == 0))
-            {
-                throw new ArgumentException($"Can't sort because nested in {nameof(jaggedArr)} array length = 0.");
-            }
-
-            for (int i = 0; i < jaggedArr.Length; i++)
-            {
-                for (int j = 0; j < jaggedArr.Length - i - 1; j++)
-                {
-                    if (FindMin(jaggedArr[j]) > FindMin(jaggedArr[j + 1]))
-                    {
-                        int[] temp = jaggedArr[j];
-                        jaggedArr[j] = jaggedArr[j + 1];
-                        jaggedArr[j + 1] = temp;
-                    }
-                }
-            }
-        }
+        private static Func<int[], int> sortBySum = FindSum;
+        private static Func<int[], int> sortByMax = FindMax;
+        private static Func<int[], int> sortByMin = FindMin;
 
         /// <summary>
         /// Finds sum of elements.
