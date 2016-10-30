@@ -9,13 +9,33 @@ namespace Task1
 {
     public static class EuclideanAlgorithm
     {
+        public static int CallStein(out long time, params int[] array)
+        {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            int result = GCD(stein, array);
+            timer.Stop();
+            time = timer.ElapsedMilliseconds;
+            return result;
+        }
+
+        public static int FindGCD(out long time, params int[] array)
+        {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            int result = GCD(euclide, array);
+            timer.Stop();
+            time = timer.ElapsedMilliseconds;
+            return result;
+        }
+
         /// <summary>
         /// Finds the greatest common divisor (GCD) of some numbers.
         /// </summary>
         /// <exception>
         /// Array can't be null and can't contain only 0 and must be longer than 1.
         /// </exception>
-        public static int FindGCD(out long time, params int[] array)
+        private static int GCD(Func<int[],int> algorithm, params int[] array)
         {
 
             if (array == null)
@@ -33,71 +53,7 @@ namespace Task1
                 throw new ArgumentException($"Every element of {nameof(array)} = 0.");
             }
 
-            Stopwatch timer = new Stopwatch();
-
-            timer.Start();
-
-            int result = array[0];
-
-            for (int i = 1; i < array.Length; i++)
-            {
-                while (array[i] != 0)
-                {
-                    array[i] = result % (result = array[i]);
-                }
-            }
-
-            timer.Stop();
-
-            time = timer.ElapsedMilliseconds;
-
-            return result;
-        }
-
-        /// <summary>
-        /// Call FindGCDByStein with a lot of numbers.
-        /// </summary>
-        /// <exception>
-        /// Array can't be null and can't contain only 0 and must be longer than 1.
-        /// </exception>
-        public static int CallStein(out long time, params int[] array)
-        {
-            if (array == null)
-            {
-                throw new ArgumentNullException($"{nameof(array)} is null.");
-            }
-
-            if (array.Length < 2)
-            {
-                throw new ArgumentOutOfRangeException($"{nameof(array)} lendth must be > 1.");
-            }
-
-            if (array.All(el => el == 0))
-            {
-                throw new ArgumentException($"Every element of {nameof(array)} = 0.");
-            }
-
-            Stopwatch timer = new Stopwatch();
-
-            timer.Start();
-
-            if (array.Any(el => el == 1))
-            {
-                timer.Stop();
-                time = timer.ElapsedMilliseconds;
-                return 1;
-            }
-
-            int result = array[0];
-
-            for (int i = 1; i < array.Length; i++)
-            {
-                result = FindGCDByStein(result, array[i]);
-            }
-
-            timer.Stop();
-
-            time = timer.ElapsedMilliseconds;
+            int result = algorithm(array);
 
             return result;
         }
@@ -119,10 +75,10 @@ namespace Task1
             {
                 return firstNumber;
             }
-            /*if (firstNumber == 1 || secondNumber == 1)
+            if (firstNumber == 1 || secondNumber == 1)
             {
                 return 1;
-            }*/
+            }
             if ((firstNumber % 2 == 0) && (secondNumber % 2 == 0))
             {
                 return 2 * FindGCDByStein(firstNumber / 2, secondNumber / 2);
@@ -138,5 +94,40 @@ namespace Task1
             return FindGCDByStein(secondNumber, Math.Abs(firstNumber - secondNumber));
         }
 
+        private static Func<int[], int> euclide = EuclideGCD;
+        private static Func<int[], int> stein = SteinGCD;
+
+        /// <summary>
+        /// Finds the greatest common divisor (GCD) of some numbers by Euclidean algorithm.
+        /// </summary>
+        private static int EuclideGCD(params int[] array)
+        {
+            int result = array[0];
+
+            for (int i = 1; i < array.Length; i++)
+            {
+                while (array[i] != 0)
+                {
+                    array[i] = result % (result = array[i]);
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Call FindGCDByStein with a lot of numbers.
+        /// </summary>
+        private static int SteinGCD(params int[] array)
+        {
+            int result = array[0];
+
+            for (int i = 1; i < array.Length; i++)
+            {
+                result = FindGCDByStein(result, array[i]);
+            }
+
+            return result;
+        }
     }
 }
