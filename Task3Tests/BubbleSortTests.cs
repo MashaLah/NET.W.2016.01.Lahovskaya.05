@@ -27,7 +27,7 @@ namespace Task3Tests
                 new int[] {1, 2, 3},
                 new int[] {3, 3, 5, 6, 0}
             };
-            IComp icomp = new SortBySum();
+            IComp icomp = new SortBySumAscending();
             //act
             BubbleSort.Sort(jArray, icomp);
             //assert
@@ -36,11 +36,35 @@ namespace Task3Tests
 
     }
 
-    public class SortBySum:IComp
+    public class SortBySumAscending : IComp
     {
         public int CompareTo(int[] firstArray, int[] secondArray)
         {
             return firstArray.Sum() - secondArray.Sum();
+        }
+    }
+
+    public class SortBySumDescending : IComp
+    {
+        public int CompareTo(int[] firstArray, int[] secondArray)
+        {
+            return secondArray.Sum() - firstArray.Sum();
+        }
+    }
+
+    public class SortByMaxAscending : IComp
+    {
+        public int CompareTo(int[] firstArray, int[] secondArray)
+        {
+            return firstArray.Max() - secondArray.Max();
+        }
+    }
+
+    public class SortByMaxDescending : IComp
+    {
+        public int CompareTo(int[] firstArray, int[] secondArray)
+        {
+            return secondArray.Max() - firstArray.Max();
         }
     }
 }
