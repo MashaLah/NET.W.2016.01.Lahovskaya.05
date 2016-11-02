@@ -9,48 +9,16 @@ namespace Task1
 {
     public static class EuclideanAlgorithm
     {
-        public static int CallStein(out long time, params int[] array)
-        {
-            Stopwatch timer = new Stopwatch();
-            timer.Start();
-            int result = GCD(stein, array);
-            timer.Stop();
-            time = timer.ElapsedTicks;
-            return result;
-        }
-
-        public static int FindGCD(out long time, params int[] array)
-        {
-            Stopwatch timer = new Stopwatch();
-            timer.Start();
-            int result = GCD(euclide, array);
-            timer.Stop();
-            time = timer.ElapsedTicks;
-            return result;
-        }
-
         /// <summary>
-        /// Finds the greatest common divisor (GCD) of some numbers.
+        /// Finds the greatest common divisor (GCD) of 2 numbers by Euclidean algorithm.
         /// </summary>
-        /// <exception>
-        /// Array can't be null and can't contain only 0 and must be longer than 1.
-        /// </exception>
-        private static void CheckExceptions (params int[] array)
+        public static int GCDEuclideMethod(int firstNumber, int secondNumber)
         {
-            if (array == null)
+            while (secondNumber != 0)
             {
-                throw new ArgumentNullException($"{nameof(array)} is null.");
+                secondNumber = firstNumber % (firstNumber = secondNumber);
             }
-
-            if (array.Length < 2)
-            {
-                throw new ArgumentOutOfRangeException($"{nameof(array)}array.Lendth must be > 1.");
-            }
-
-            if (array.All(el => el==0))
-            {
-                throw new ArgumentException($"Every element of {nameof(array)} = 0.");
-            }
+            return firstNumber;
         }
 
         /// <summary>
@@ -58,7 +26,6 @@ namespace Task1
         /// </summary>
         public static int GCDSteinMethod(int firstNumber, int secondNumber)
         {
-            CheckExceptions();
             if (firstNumber == 0)
             {
                 return secondNumber;
@@ -90,9 +57,11 @@ namespace Task1
             return GCDSteinMethod(secondNumber, Math.Abs(firstNumber - secondNumber));
         }
 
-        private static int GCDSteinMethod(int firstNumber, int secondNumber, out long time)
+        /// <summary>
+        /// Finds the greatest common divisor (GCD) of 2 numbers using Stein's algorithm with time.
+        /// </summary>
+        public static int GCDSteinMethod(int firstNumber, int secondNumber, out long time)
         {
-            CheckExceptions();
             Stopwatch timer = new Stopwatch();
             timer.Start();
             int result = GCDSteinMethod(firstNumber,secondNumber);
@@ -101,9 +70,11 @@ namespace Task1
             return result;
         }
 
+        /// <summary>
+        /// Finds the greatest common divisor (GCD) of 2 numbers using Euclidean algorithm with time.
+        /// </summary>
         public static int GCDEuclideMethod(int firstNumber, int secondNumber, out long time)
         {
-            CheckExceptions();
             Stopwatch timer = new Stopwatch();
             timer.Start();
             int result = GCDEuclideMethod(firstNumber, secondNumber);
@@ -113,11 +84,58 @@ namespace Task1
         }
 
         /// <summary>
+        /// Finds the greatest common divisor (GCD) of 3 numbers by Euclidean algorithm.
+        /// </summary>
+        public static int GCDEuclideMethod(int firstNumber, int secondNumber, int thirdNumber)
+        {
+            int firstGDC = GCDEuclideMethod(firstNumber, secondNumber);
+            int result = GCDEuclideMethod(firstGDC, thirdNumber);
+            return result;
+        }
+
+        /// <summary>
+        /// Finds the greatest common divisor (GCD) of 3 numbers by Euclidean algorithm.
+        /// </summary>
+        public static int GCDSteinMethod(int firstNumber, int secondNumber, int thirdNumber)
+        {
+            int firstGDC = GCDSteinMethod(firstNumber, secondNumber);
+            int result = GCDSteinMethod(firstGDC, thirdNumber);
+            return result;
+        }
+
+        /// <summary>
+        /// Finds the greatest common divisor (GCD) of 3 numbers by Euclidean algorithm with time.
+        /// </summary>
+        public static int GDCEuclideAlgoritm(int firstNumber, int secondNumber, int thirdNumber, out long time)
+        {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            int result = GCDEuclideMethod(firstNumber, secondNumber, thirdNumber);
+            timer.Stop();
+            time = timer.Elapsed.Ticks;
+            return result;
+        }
+
+        /// <summary>
+        /// Finds the greatest common divisor (GCD) of 3 numbers by Stein's algorithm with time.
+        /// </summary>
+        public static int GDCSteinAlgoritm(int firstNumber, int secondNumber, int thirdNumber, out long time)
+        {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            int result = GCDSteinMethod(firstNumber, secondNumber, thirdNumber);
+            timer.Stop();
+            time = timer.Elapsed.Ticks;
+            return result;
+        }
+
+        /// <summary>
         /// Finds the greatest common divisor (GCD) of some numbers by Euclidean algorithm.
         /// </summary>
-        private static int GCDEuclideMethod(params int[] array)
+        public static int GCDEuclideMethod(params int[] array)
         {
-            CheckExceptions();
+            CheckExceptions(array);
+
             int result = array[0];
 
             for (int i = 1; i < array.Length; i++)
@@ -131,9 +149,12 @@ namespace Task1
             return result;
         }
 
-        private static int GCDEuclideMethod(out long time, params int[] array)
+        /// <summary>
+        /// Finds the greatest common divisor (GCD) of some numbers by Euclidean algorithm with time.
+        /// </summary>
+        public static int GCDEuclideMethod(out long time, params int[] array)
         {
-            CheckExceptions();
+            CheckExceptions(array);
             Stopwatch timer = new Stopwatch();
             timer.Start();
             int result = GCDEuclideMethod(array);
@@ -142,30 +163,13 @@ namespace Task1
             return result;
         }
 
-        public static int GCDEuclideMethod(int firstNumber, int secondNumber)
-        {
-            CheckExceptions();
-            while (secondNumber != 0)
-            {
-                secondNumber = firstNumber % (firstNumber = secondNumber);
-            }
-            return firstNumber;
-        }
-
-        private static int GCDEuclideMethod(int firstNumber, int secondNumber, int thirdNumber)
-        {
-            CheckExceptions();
-            int firstGDC = GCDEuclideMethod(firstNumber, secondNumber);
-            int result = GCDEuclideMethod(firstGDC, thirdNumber);
-            return result;
-        }
-
         /// <summary>
-        /// Call FindGCDByStein with a lot of numbers.
+        /// Finds the greatest common divisor (GCD) of some numbers by Stein's algorithm.
         /// </summary>
-        private static int GCDSteinMethod(params int[] array)
+        public static int GCDSteinMethod(params int[] array)
         {
-            CheckExceptions();
+            CheckExceptions(array);
+
             int result = array[0];
 
             for (int i = 1; i < array.Length; i++)
@@ -176,12 +180,42 @@ namespace Task1
             return result;
         }
 
-        private static int GCDSteinMethod(int firstNumber, int secondNumber, int thirdNumber)
+        /// <summary>
+        /// Finds the greatest common divisor (GCD) of some numbers by Stein's algorithm with time.
+        /// </summary>
+        public static int GCDSteinMethod(out long time, params int[] array)
         {
-            CheckExceptions();
-            int firstGDC = GCDSteinMethod(firstNumber, secondNumber);
-            int result = GCDSteinMethod(firstGDC, thirdNumber);
+            CheckExceptions(array);
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            int result = GCDSteinMethod(array);
+            timer.Stop();
+            time = timer.Elapsed.Ticks;
             return result;
+        }
+
+        /// <summary>
+        /// Check input array.
+        /// </summary>
+        /// <exception>
+        /// Array can't be null and can't contain only 0 and must be longer than 1.
+        /// </exception>
+        private static void CheckExceptions(params int[] array)
+        {
+            if (array == null)
+            {
+                throw new ArgumentNullException($"{nameof(array)} is null.");
+            }
+
+            if (array.Length < 2)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(array)}array.Lendth must be > 1.");
+            }
+
+            if (array.All(el => el == 0))
+            {
+                throw new ArgumentException($"Every element of {nameof(array)} = 0.");
+            }
         }
     }
 }
