@@ -12,52 +12,6 @@ namespace Task3Tests
     [TestFixture]
     public class BubbleSortTests
     {
-        static int[][] jArray =
-{
-                    new int[] {-1},
-                    new int[] {3, 3, 5, 6, 0},
-                    new int[] {-1, 2, 3}
-                };
-
-        static int[][] expectedAsc =
-        {
-                    new int[] {-1},
-                    new int[] {-1, 2, 3},
-                    new int[] {3, 3, 5, 6, 0}
-                };
-
-        static int[][] expectedDesc =
-        {
-                    new int[] { 3, 3, 5, 6, 0 },
-                    new int[] { -1, 2, 3 },
-                    new int[] { -1 }
-                };
-
-        /// <summary>
-        /// Data for Sort_JaggedArray_SortedJaggedArray().
-        /// </summary>
-        static IEnumerable ValidTestCases
-        {
-            get
-            {
-                yield return new TestCaseData(new SortBySumAscending(), jArray, expectedAsc);
-                yield return new TestCaseData(new SortBySumDescending(), jArray, expectedDesc);
-                yield return new TestCaseData(new SortByMaxAscending(), jArray, expectedAsc);
-                yield return new TestCaseData(new SortByMaxAscending(), jArray, expectedDesc);
-            }
-        }
-
-        /// <summary>
-        /// Data for exception tests. 
-        /// </summary>
-        static IComp[] ExceptionsTestCases =
-        {
-             new SortBySumAscending(),
-             new SortBySumDescending(),
-             new SortByMaxAscending(),
-             new SortByMaxAscending()
-        };
-
         /// <summary>
         /// A test for Sort() with valid data.
         /// </summary>
@@ -116,6 +70,52 @@ namespace Task3Tests
             };
             Assert.Throws<ArgumentException>(() => BubbleSort.Sort(jaggedArray, icomp));
         }
+
+        static int[][] jArray =
+        {
+                    new int[] {-1},
+                    new int[] {3, 3, 5, 6, 0},
+                    new int[] {-1, 2, 3}
+                };
+
+        static int[][] expectedAsc =
+        {
+                    new int[] {-1},
+                    new int[] {-1, 2, 3},
+                    new int[] {3, 3, 5, 6, 0}
+                };
+
+        static int[][] expectedDesc =
+        {
+                    new int[] { 3, 3, 5, 6, 0 },
+                    new int[] { -1, 2, 3 },
+                    new int[] { -1 }
+                };
+
+        /// <summary>
+        /// Data for Sort_JaggedArray_SortedJaggedArray().
+        /// </summary>
+        static IEnumerable ValidTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(new SortBySumAscending(), jArray, expectedAsc);
+                yield return new TestCaseData(new SortBySumDescending(), jArray, expectedDesc);
+                yield return new TestCaseData(new SortByMaxAscending(), jArray, expectedAsc);
+                yield return new TestCaseData(new SortByMaxAscending(), jArray, expectedDesc);
+            }
+        }
+
+        /// <summary>
+        /// Data for exception tests. 
+        /// </summary>
+        static IComp[] ExceptionsTestCases =
+        {
+             new SortBySumAscending(),
+             new SortBySumDescending(),
+             new SortByMaxAscending(),
+             new SortByMaxAscending()
+        };
 
     }
     #region
