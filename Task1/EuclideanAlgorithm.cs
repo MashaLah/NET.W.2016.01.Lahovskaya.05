@@ -14,11 +14,13 @@ namespace Task1
         /// </summary>
         public static int GCDEuclideMethod(int firstNumber, int secondNumber)
         {
+            CheckExceptionsForTwo(firstNumber, secondNumber);
+
             while (secondNumber != 0)
             {
                 secondNumber = firstNumber % (firstNumber = secondNumber);
             }
-            return firstNumber;
+            return Math.Abs(firstNumber);
         }
 
         /// <summary>
@@ -26,17 +28,19 @@ namespace Task1
         /// </summary>
         public static int GCDSteinMethod(int firstNumber, int secondNumber)
         {
+            CheckExceptionsForTwo(firstNumber, secondNumber);
+
             if (firstNumber == 0)
             {
-                return secondNumber;
+                return Math.Abs(secondNumber);
             }
             if (secondNumber == 0)
             {
-                return firstNumber;
+                return Math.Abs(firstNumber);
             }
             if (firstNumber == secondNumber)
             {
-                return firstNumber;
+                return Math.Abs(firstNumber);
             }
             if (firstNumber == 1 || secondNumber == 1)
             {
@@ -62,6 +66,8 @@ namespace Task1
         /// </summary>
         public static int GCDSteinMethod(int firstNumber, int secondNumber, out long time)
         {
+            CheckExceptionsForTwo(firstNumber, secondNumber);
+
             Stopwatch timer = new Stopwatch();
             timer.Start();
             int result = GCDSteinMethod(firstNumber,secondNumber);
@@ -75,6 +81,8 @@ namespace Task1
         /// </summary>
         public static int GCDEuclideMethod(int firstNumber, int secondNumber, out long time)
         {
+            CheckExceptionsForTwo(firstNumber, secondNumber);
+
             Stopwatch timer = new Stopwatch();
             timer.Start();
             int result = GCDEuclideMethod(firstNumber, secondNumber);
@@ -88,6 +96,7 @@ namespace Task1
         /// </summary>
         public static int GCDEuclideMethod(int firstNumber, int secondNumber, int thirdNumber)
         {
+            CheckExceptionsForThree(firstNumber, secondNumber, thirdNumber);
             int firstGDC = GCDEuclideMethod(firstNumber, secondNumber);
             int result = GCDEuclideMethod(firstGDC, thirdNumber);
             return result;
@@ -98,6 +107,7 @@ namespace Task1
         /// </summary>
         public static int GCDSteinMethod(int firstNumber, int secondNumber, int thirdNumber)
         {
+            CheckExceptionsForThree(firstNumber, secondNumber, thirdNumber);
             int firstGDC = GCDSteinMethod(firstNumber, secondNumber);
             int result = GCDSteinMethod(firstGDC, thirdNumber);
             return result;
@@ -106,8 +116,9 @@ namespace Task1
         /// <summary>
         /// Finds the greatest common divisor (GCD) of 3 numbers by Euclidean algorithm with time.
         /// </summary>
-        public static int GDCEuclideAlgoritm(int firstNumber, int secondNumber, int thirdNumber, out long time)
+        public static int GCDEuclideMethod(int firstNumber, int secondNumber, int thirdNumber, out long time)
         {
+            CheckExceptionsForThree(firstNumber, secondNumber, thirdNumber);
             Stopwatch timer = new Stopwatch();
             timer.Start();
             int result = GCDEuclideMethod(firstNumber, secondNumber, thirdNumber);
@@ -119,8 +130,9 @@ namespace Task1
         /// <summary>
         /// Finds the greatest common divisor (GCD) of 3 numbers by Stein's algorithm with time.
         /// </summary>
-        public static int GDCSteinAlgoritm(int firstNumber, int secondNumber, int thirdNumber, out long time)
+        public static int GCDSteinMethod(int firstNumber, int secondNumber, int thirdNumber, out long time)
         {
+            CheckExceptionsForThree(firstNumber, secondNumber, thirdNumber);
             Stopwatch timer = new Stopwatch();
             timer.Start();
             int result = GCDSteinMethod(firstNumber, secondNumber, thirdNumber);
@@ -146,7 +158,7 @@ namespace Task1
                 }
             }
 
-            return result;
+            return Math.Abs(result);
         }
 
         /// <summary>
@@ -154,7 +166,7 @@ namespace Task1
         /// </summary>
         public static int GCDEuclideMethod(out long time, params int[] array)
         {
-            CheckExceptions(array);
+           // CheckExceptions(array);
             Stopwatch timer = new Stopwatch();
             timer.Start();
             int result = GCDEuclideMethod(array);
@@ -215,6 +227,34 @@ namespace Task1
             if (array.All(el => el == 0))
             {
                 throw new ArgumentException($"Every element of {nameof(array)} = 0.");
+            }
+        }
+
+        /// <summary>
+        /// Check input 2 numbers.
+        /// </summary>
+        /// <exception>
+        /// Both numbers can't be = 0 at the same time.
+        /// </exception>
+        private static void CheckExceptionsForTwo(int firstNumber, int secondNumber)
+        {
+            if (firstNumber == 0 && secondNumber == 0)
+            {
+                throw new ArgumentException($"{nameof(firstNumber)} and {nameof(secondNumber)} = 0.");
+            }
+        }
+
+        /// <summary>
+        /// Check input array.
+        /// </summary>
+        /// <exception>
+        /// All numbers can't be = 0 at the same time
+        /// </exception>
+        private static void CheckExceptionsForThree(int firstNumber, int secondNumber, int thirdNumber)
+        {
+            if (firstNumber == 0 && secondNumber == 0 && thirdNumber == 0)
+            {
+                throw new ArgumentException($"{nameof(firstNumber)} and {nameof(secondNumber)} and {nameof(thirdNumber)} = 0.");
             }
         }
     }
