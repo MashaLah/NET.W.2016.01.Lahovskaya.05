@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace Task1Tests
 {
+    #region
     [TestFixture]
     public class EuclideanAlgorithmTests
     {
@@ -210,6 +211,9 @@ namespace Task1Tests
             Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDEuclideMethod(out time, 0, 0, 0, 0));
         }
 
+        #endregion
+
+        #region
         /// <summary>
         /// A test for GDCSteinMetod with 2 numbers.
         /// </summary>
@@ -407,6 +411,6 @@ namespace Task1Tests
             long time;
             Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDSteinMethod(out time, 0, 0, 0, 0));
         }
-
     }
+    #endregion
 }

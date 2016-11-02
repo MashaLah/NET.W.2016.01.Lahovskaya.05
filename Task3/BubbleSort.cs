@@ -42,13 +42,17 @@ namespace Task3
                 {
                     if (icomp.CompareTo(jaggedArr[j], jaggedArr[j + 1]) > 0)
                     {
-                        int[] temp = jaggedArr[j];
-                        jaggedArr[j] = jaggedArr[j + 1];
-                        jaggedArr[j + 1] = temp;
-                        //Swap(ref jaggedArr[j], ref jaggedArr[j + 1]);
+                        SwapArrays(ref jaggedArr[j], ref jaggedArr[j + 1]);
                     }
                 }
             }
+        }
+
+        private static void SwapArrays(ref int[] firstArray,ref int[] secondArray)
+        {
+            int[] temp = firstArray;
+            firstArray = secondArray;
+            secondArray = temp;
         }
     }
 
