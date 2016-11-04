@@ -32,7 +32,7 @@ namespace Task3
             {
                 for (int j = 0; j < jaggedArr.Length - i - 1; j++)
                 {
-                    if (icomp.CompareTo(jaggedArr[j], jaggedArr[j + 1]) > 0)
+                    if (icomparator.CompareTo(jaggedArr[j], jaggedArr[j + 1]) > 0)
                     {
                         SwapArrays(ref jaggedArr[j], ref jaggedArr[j + 1]);
                     }
