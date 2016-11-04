@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Task1;
 using System.Diagnostics;
+using static Task1.EuclideanAlgorithm;
 
 namespace Task1Tests
 {
@@ -24,7 +25,7 @@ namespace Task1Tests
         public void GDCEuclideMethod_2Numbers_ValidReturned(int expected, int firstNumber, int secondNumber)
         {
             //act
-            int actual = EuclideanAlgorithm.GCDEuclideMethod(firstNumber, secondNumber);
+            int actual = GCDEuclideMethod(firstNumber, secondNumber);
             //assert
             Assert.AreEqual(expected,actual);
         }
@@ -42,7 +43,7 @@ namespace Task1Tests
             //arrange
             long time;
             //act
-            int actual = EuclideanAlgorithm.GCDEuclideMethod(firstNumber, secondNumber, out time);
+            int actual = GCDEuclideMethod(firstNumber, secondNumber, out time);
             //assert
             Debug.WriteLine($"Run time: {time}");
             Assert.AreEqual(expected, actual);
@@ -59,7 +60,7 @@ namespace Task1Tests
         public void GDCEuclideMethod_3Numbers_ValidReturned(int expected, int firstNumber, int secondNumber, int thirdNumber)
         {
             //act
-            int actual = EuclideanAlgorithm.GCDEuclideMethod(firstNumber, secondNumber, thirdNumber);
+            int actual = GCDEuclideMethod(firstNumber, secondNumber, thirdNumber);
             //assert
             Assert.AreEqual(expected, actual);
         }
@@ -77,7 +78,7 @@ namespace Task1Tests
             //arrange
             long time;
             //act
-            int actual = EuclideanAlgorithm.GCDEuclideMethod(firstNumber, secondNumber, thirdNumber, out time);
+            int actual = GCDEuclideMethod(firstNumber, secondNumber, thirdNumber, out time);
             //assert
             Debug.WriteLine($"Run time: {time}");
             Assert.AreEqual(expected, actual);
@@ -93,7 +94,7 @@ namespace Task1Tests
         public void GDCEuclideMethod_Array_ValidReturned(int expected, params int[] array)
         {
             //act
-            int actual = EuclideanAlgorithm.GCDEuclideMethod(array);
+            int actual = GCDEuclideMethod(array);
             //assert
             Assert.AreEqual(expected, actual);
         }
@@ -110,7 +111,7 @@ namespace Task1Tests
             //arrange
             long time;
             //act
-            int actual = EuclideanAlgorithm.GCDEuclideMethod(out time, array);
+            int actual = GCDEuclideMethod(out time, array);
             //assert
             Debug.WriteLine($"Run time: {time}");
             Assert.AreEqual(expected, actual);
@@ -122,7 +123,7 @@ namespace Task1Tests
         [Test]
         public void GCDEuclideMethod_Two0_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDEuclideMethod(0,0));
+            Assert.Throws<ArgumentException>(() => GCDEuclideMethod(0,0));
         }
 
         /// <summary>
@@ -132,7 +133,7 @@ namespace Task1Tests
         public void GCDEuclideMethod_Two0AndTime_ThrowsArgumentException()
         {
             long time;
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDEuclideMethod(0, 0, out time));
+            Assert.Throws<ArgumentException>(() => GCDEuclideMethod(0, 0, out time));
         }
 
         /// <summary>
@@ -141,7 +142,7 @@ namespace Task1Tests
         [Test]
         public void GCDEuclideMethod_Three0_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDEuclideMethod(0, 0, 0));
+            Assert.Throws<ArgumentException>(() => GCDEuclideMethod(0, 0, 0));
         }
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace Task1Tests
         public void GCDEuclideMethod_Three0AndTime_ThrowsArgumentException()
         {
             long time;
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDEuclideMethod(0, 0, 0, out time));
+            Assert.Throws<ArgumentException>(() => GCDEuclideMethod(0, 0, 0, out time));
         }
 
         /// <summary>
@@ -161,7 +162,7 @@ namespace Task1Tests
         public void GCDEuclideMethod_ArrayIsNullWithTime_ThrowsArgumentNullException()
         {
             long time;
-            Assert.Throws < ArgumentNullException >(() => EuclideanAlgorithm.GCDEuclideMethod(out time, null));
+            Assert.Throws < ArgumentNullException >(() => GCDEuclideMethod(out time, null));
         }
 
         /// <summary>
@@ -170,7 +171,7 @@ namespace Task1Tests
         [Test]
         public void GCDEuclideMethod_ArrayIsNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => EuclideanAlgorithm.GCDEuclideMethod(null));
+            Assert.Throws<ArgumentNullException>(() => GCDEuclideMethod(null));
         }
 
         /// <summary>
@@ -180,7 +181,7 @@ namespace Task1Tests
         public void GCDEuclideMethod_ArrayLengthIsLessThan2WithTime_TrowsArgumentOutOfRangeException()
         {
             long time;
-            Assert.Throws<ArgumentOutOfRangeException>(() => EuclideanAlgorithm.GCDEuclideMethod(out time, 9));
+            Assert.Throws<ArgumentOutOfRangeException>(() => GCDEuclideMethod(out time, 9));
         }
 
         /// <summary>
@@ -189,7 +190,7 @@ namespace Task1Tests
         [Test]
         public void GCDEuclideMethod_ArrayLengthIsLessThan2_TrowsArgumentOutOfRangeException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => EuclideanAlgorithm.GCDEuclideMethod(9));
+            Assert.Throws<ArgumentOutOfRangeException>(() => GCDEuclideMethod(9));
         }
 
         /// <summary>
@@ -198,7 +199,7 @@ namespace Task1Tests
         [Test]
         public void GCDEuclideMethod_EveryElementOfArrayIs0_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDEuclideMethod(0, 0, 0, 0));
+            Assert.Throws<ArgumentException>(() => GCDEuclideMethod(0, 0, 0, 0));
         }
 
         /// <summary>
@@ -208,7 +209,7 @@ namespace Task1Tests
         public void GCDEuclideMethod_EveryElementOfArrayIs0WithTime_ThrowsArgumentException()
         {
             long time;
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDEuclideMethod(out time, 0, 0, 0, 0));
+            Assert.Throws<ArgumentException>(() => GCDEuclideMethod(out time, 0, 0, 0, 0));
         }
 
         #endregion
@@ -225,7 +226,7 @@ namespace Task1Tests
         public void GCDSteinMethod_2Numbers_ValidReturned(int expected, int firstNumber, int secondNumber)
         {
             //act
-            int actual = EuclideanAlgorithm.GCDSteinMethod(firstNumber, secondNumber);
+            int actual = GCDSteinMethod(firstNumber, secondNumber);
             //assert
             Assert.AreEqual(expected, actual);
         }
@@ -243,7 +244,7 @@ namespace Task1Tests
             //arrange
             long time;
             //act
-            int actual = EuclideanAlgorithm.GCDSteinMethod(firstNumber, secondNumber, out time);
+            int actual = GCDSteinMethod(firstNumber, secondNumber, out time);
             //assert
             Debug.WriteLine($"Run time: {time}");
             Assert.AreEqual(expected, actual);
@@ -260,7 +261,7 @@ namespace Task1Tests
         public void GCDSteinMethod_3Numbers_ValidReturned(int expected, int firstNumber, int secondNumber, int thirdNumber)
         {
             //act
-            int actual = EuclideanAlgorithm.GCDSteinMethod(firstNumber, secondNumber, thirdNumber);
+            int actual = GCDSteinMethod(firstNumber, secondNumber, thirdNumber);
             //assert
             Assert.AreEqual(expected, actual);
         }
@@ -278,7 +279,7 @@ namespace Task1Tests
             //arrange
             long time;
             //act
-            int actual = EuclideanAlgorithm.GCDSteinMethod(firstNumber, secondNumber, thirdNumber, out time);
+            int actual = GCDSteinMethod(firstNumber, secondNumber, thirdNumber, out time);
             //assert
             Debug.WriteLine($"Run time: {time}");
             Assert.AreEqual(expected, actual);
@@ -294,7 +295,7 @@ namespace Task1Tests
         public void GCDSteinMethod_Array_ValidReturned(int expected, params int[] array)
         {
             //act
-            int actual = EuclideanAlgorithm.GCDSteinMethod(array);
+            int actual = GCDSteinMethod(array);
             //assert
             Assert.AreEqual(expected, actual);
         }
@@ -311,7 +312,7 @@ namespace Task1Tests
             //arrange
             long time;
             //act
-            int actual = EuclideanAlgorithm.GCDSteinMethod(out time, array);
+            int actual = GCDSteinMethod(out time, array);
             //assert
             Debug.WriteLine($"Run time: {time}");
             Assert.AreEqual(expected, actual);
@@ -323,7 +324,7 @@ namespace Task1Tests
         [Test]
         public void GCDSteinMethod_Two0_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDSteinMethod(0, 0));
+            Assert.Throws<ArgumentException>(() => GCDSteinMethod(0, 0));
         }
 
         /// <summary>
@@ -333,7 +334,7 @@ namespace Task1Tests
         public void GCDSteinMethod_Two0AndTime_ThrowsArgumentException()
         {
             long time;
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDSteinMethod(0, 0, out time));
+            Assert.Throws<ArgumentException>(() => GCDSteinMethod(0, 0, out time));
         }
 
         /// <summary>
@@ -342,7 +343,7 @@ namespace Task1Tests
         [Test]
         public void GCDSteinMethod_Three0_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDSteinMethod(0, 0, 0));
+            Assert.Throws<ArgumentException>(() => GCDSteinMethod(0, 0, 0));
         }
 
         /// <summary>
@@ -352,7 +353,7 @@ namespace Task1Tests
         public void GCDSteinMethod_Three0AndTime_ThrowsArgumentException()
         {
             long time;
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDSteinMethod(0, 0, 0, out time));
+            Assert.Throws<ArgumentException>(() => GCDSteinMethod(0, 0, 0, out time));
         }
 
         /// <summary>
@@ -362,7 +363,7 @@ namespace Task1Tests
         public void GCDSteinMethod_ArrayIsNullWithTime_ThrowsArgumentNullException()
         {
             long time;
-            Assert.Throws<ArgumentNullException>(() => EuclideanAlgorithm.GCDSteinMethod(out time, null));
+            Assert.Throws<ArgumentNullException>(() => GCDSteinMethod(out time, null));
         }
 
         /// <summary>
@@ -371,7 +372,7 @@ namespace Task1Tests
         [Test]
         public void GCDSteinMethod_ArrayIsNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => EuclideanAlgorithm.GCDSteinMethod(null));
+            Assert.Throws<ArgumentNullException>(() => GCDSteinMethod(null));
         }
 
         /// <summary>
@@ -381,7 +382,7 @@ namespace Task1Tests
         public void GCDSteinMethod_ArrayLengthIsLessThan2WithTime_TrowsArgumentOutOfRangeException()
         {
             long time;
-            Assert.Throws<ArgumentOutOfRangeException>(() => EuclideanAlgorithm.GCDSteinMethod(out time, 9));
+            Assert.Throws<ArgumentOutOfRangeException>(() => GCDSteinMethod(out time, 9));
         }
 
         /// <summary>
@@ -390,7 +391,7 @@ namespace Task1Tests
         [Test]
         public void GCDSteinMethod_ArrayLengthIsLessThan2_TrowsArgumentOutOfRangeException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => EuclideanAlgorithm.GCDSteinMethod(9));
+            Assert.Throws<ArgumentOutOfRangeException>(() => GCDSteinMethod(9));
         }
 
         /// <summary>
@@ -399,7 +400,7 @@ namespace Task1Tests
         [Test]
         public void GCDSteinMethod_EveryElementOfArrayIs0_ThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDSteinMethod(0, 0, 0, 0));
+            Assert.Throws<ArgumentException>(() => GCDSteinMethod(0, 0, 0, 0));
         }
 
         /// <summary>
@@ -409,7 +410,7 @@ namespace Task1Tests
         public void GCDSteinMethod_EveryElementOfArrayIs0WithTime_ThrowsArgumentException()
         {
             long time;
-            Assert.Throws<ArgumentException>(() => EuclideanAlgorithm.GCDSteinMethod(out time, 0, 0, 0, 0));
+            Assert.Throws<ArgumentException>(() => GCDSteinMethod(out time, 0, 0, 0, 0));
         }
     }
     #endregion

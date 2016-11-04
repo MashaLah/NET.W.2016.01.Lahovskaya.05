@@ -14,27 +14,19 @@ namespace Task3
         /// <exception>
         /// Neither jagged array nor nested array can be null and can have length = 0.
         /// </exception>
-        public static void Sort(int[][] jaggedArr, IComp icomp) 
+        public static void Sort(int[][] jaggedArr, IComp icomparator) 
         {
             if (jaggedArr == null)
-            {
                 throw new ArgumentNullException($"{nameof(jaggedArr)} is null");
-            }
 
             if (jaggedArr.Length == 0)
-            {
                 throw new ArgumentException($"Can't sort because {nameof(jaggedArr)} length = 0.");
-            }
 
-            if (jaggedArr.Any(el => el == null))
-            {
-                throw new ArgumentNullException($"Can't sort because nested in {nameof(jaggedArr)} array is null.");
-            }
+            if (icomparator == null)
+                throw new ArgumentNullException($"{nameof(icomparator)} is null.");
 
             if (jaggedArr.Any(el => el.Length == 0))
-            {
                 throw new ArgumentException($"Can't sort because nested in {nameof(jaggedArr)} array length = 0.");
-            }
 
             for (int i = 0; i < jaggedArr.Length; i++)
             {

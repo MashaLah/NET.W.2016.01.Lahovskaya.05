@@ -17,9 +17,8 @@ namespace Task1
             CheckExceptionsForTwo(firstNumber, secondNumber);
 
             while (secondNumber != 0)
-            {
                 secondNumber = firstNumber % (firstNumber = secondNumber);
-            }
+            
             return Math.Abs(firstNumber);
         }
 
@@ -31,33 +30,26 @@ namespace Task1
             CheckExceptionsForTwo(firstNumber, secondNumber);
 
             if (firstNumber == 0)
-            {
                 return Math.Abs(secondNumber);
-            }
+
             if (secondNumber == 0)
-            {
                 return Math.Abs(firstNumber);
-            }
+     
             if (firstNumber == secondNumber)
-            {
                 return Math.Abs(firstNumber);
-            }
+            
             if (firstNumber == 1 || secondNumber == 1)
-            {
                 return 1;
-            }
+            
             if ((firstNumber % 2 == 0) && (secondNumber % 2 == 0))
-            {
                 return 2 * GCDSteinMethod(firstNumber / 2, secondNumber / 2);
-            }
+            
             if ((firstNumber % 2 == 0) && (secondNumber % 2 != 0))
-            {
                 return GCDSteinMethod(firstNumber / 2, secondNumber);
-            }
+            
             if ((firstNumber % 2 != 0) && (secondNumber % 2 == 0))
-            {
                 return GCDSteinMethod(firstNumber, secondNumber / 2);
-            }
+            
             return GCDSteinMethod(secondNumber, Math.Abs(firstNumber - secondNumber));
         }
 
@@ -153,9 +145,7 @@ namespace Task1
             for (int i = 1; i < array.Length; i++)
             {
                 while (array[i] != 0)
-                {
                     array[i] = result % (result = array[i]);
-                }
             }
 
             return Math.Abs(result);
@@ -166,7 +156,7 @@ namespace Task1
         /// </summary>
         public static int GCDEuclideMethod(out long time, params int[] array)
         {
-           // CheckExceptions(array);
+            CheckExceptions(array);
             Stopwatch timer = new Stopwatch();
             timer.Start();
             int result = GCDEuclideMethod(array);
@@ -185,9 +175,7 @@ namespace Task1
             int result = array[0];
 
             for (int i = 1; i < array.Length; i++)
-            {
                 result = GCDSteinMethod(result, array[i]);
-            }
 
             return result;
         }
@@ -215,19 +203,13 @@ namespace Task1
         private static void CheckExceptions(params int[] array)
         {
             if (array == null)
-            {
                 throw new ArgumentNullException($"{nameof(array)} is null.");
-            }
 
             if (array.Length < 2)
-            {
                 throw new ArgumentOutOfRangeException($"{nameof(array)}array.Lendth must be > 1.");
-            }
 
             if (array.All(el => el == 0))
-            {
                 throw new ArgumentException($"Every element of {nameof(array)} = 0.");
-            }
         }
 
         /// <summary>
@@ -239,9 +221,7 @@ namespace Task1
         private static void CheckExceptionsForTwo(int firstNumber, int secondNumber)
         {
             if (firstNumber == 0 && secondNumber == 0)
-            {
                 throw new ArgumentException($"{nameof(firstNumber)} and {nameof(secondNumber)} = 0.");
-            }
         }
 
         /// <summary>
@@ -253,9 +233,7 @@ namespace Task1
         private static void CheckExceptionsForThree(int firstNumber, int secondNumber, int thirdNumber)
         {
             if (firstNumber == 0 && secondNumber == 0 && thirdNumber == 0)
-            {
                 throw new ArgumentException($"{nameof(firstNumber)} and {nameof(secondNumber)} and {nameof(thirdNumber)} = 0.");
-            }
         }
     }
 }
