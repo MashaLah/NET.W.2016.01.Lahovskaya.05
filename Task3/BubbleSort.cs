@@ -37,6 +37,11 @@ namespace Task3
             }
         }
 
+        /// <summary>
+        /// Sorts jagget array.
+        /// </summary>
+        /// <param name="jaggedArr">Array int[][]</param>
+        /// <param name="sortingFunction">Delegate, 2 input arrays of integer, return integer</param>
         public static void Sort(int[][] jaggedArr, Func<int[],int[], int> sortingFunction)
         {
             if (sortingFunction == null)
@@ -46,6 +51,11 @@ namespace Task3
             Sort(jaggedArr,adapter);
         }
 
+        /// <summary>
+        /// Swap 2 arrays of integer.
+        /// </summary>
+        /// <param name="firstArray">Array of intrger</param>
+        /// <param name="secondArray">Array of integer</param>
         private static void SwapArrays(ref int[] firstArray,ref int[] secondArray)
         {
             int[] temp = firstArray;
