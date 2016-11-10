@@ -5,226 +5,256 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Task2;
+using System.Collections;
 
 namespace Task2Tests
 {
     [TestFixture]
     public class BubbleSortTests
     {
+
+        static SortBySumAscending sortBySumAscending = new SortBySumAscending();
+        static SortBySumDescending sortBySumdesc = new SortBySumDescending();
+        static SortByMaxAscending sortByMaxAscending = new SortByMaxAscending();
+        static SortByMaxDescending sortByMaxDescending = new SortByMaxDescending();
+
+        static Func<int[],int[], int> sortBySumAscendingDelegate = sortBySumAscending.Compare;
+        static Func<int[], int[], int> sortBySumdescDelegate = sortBySumdesc.Compare;
+        static Func<int[], int[], int> sortByMaxAscendingDelegate = sortByMaxAscending.Compare;
+        static Func<int[], int[], int> sortByMaxDescendingDelegate = sortByMaxDescending.Compare;
+
         /// <summary>
-        /// A test for SortSum.
+        /// A test for Sort() with valid data. IComparer parameter.
         /// </summary>
-        [Test]
-        public void SortSum_JaggedArray_SortedJaggedArray()
+        [Test, TestCaseSource(nameof(ValidTestCases))]
+        [TestCaseSource(nameof(ValidTestCasesNull))]
+        public void Sort_JaggedArrayIComparer_SortedJaggedArray(IComparer<int[]> icomp, int[][] jArray, int[][] expected)
         {
-            //arrange
-            int[][] jArray =
-            {
-                new int[] {-1},
-                new int[] {3, 3, 5, 6, 0},
-                new int[] {1, 2, 3}
-            };
-            int[][] expected =
-            {
-                new int[] {-1},
-                new int[] {1, 2, 3},
-                new int[] {3, 3, 5, 6, 0}
-            };
             //act
-            BubbleSort.SortSum(jArray);
+            BubbleSort.Sort(jArray, icomp);
             //assert
             Assert.AreEqual(expected, jArray);
         }
 
         /// <summary>
-        /// A test for SortMax.
+        /// A test for Sort() with valid data. Delegate parameter.
         /// </summary>
-        [Test]
-        public void SortMax_JaggedArray_SortedJaggedArray()
+        [Test, TestCaseSource(nameof(ValidTestCasesDelegate))]
+        [TestCaseSource(nameof(ValidTestCasesNullDelegate))]
+        public void Sort_JaggedArrayDelegate_SortedJaggedArray(Func<int[],int[],int> sortingFunction, int[][] jArray, int[][] expected)
         {
-            //arrange
-            int[][] jArray =
-            {
-                new int[] {-1, 2},
-                new int[] {3, 3, 5, 6, 0},
-                new int[] {1, 2, 3}
-            };
-            int[][] expected =
-            {
-                new int[] {-1, 2},
-                new int[] {1, 2, 3},
-                new int[] {3, 3, 5, 6, 0}
-            };
             //act
-            BubbleSort.SortMax(jArray);
+            BubbleSort.Sort(jArray, sortingFunction);
             //assert
             Assert.AreEqual(expected, jArray);
         }
 
         /// <summary>
-        /// A test for SortMin.
+        /// A test for Sort using interface with null parameter.
         /// </summary>
-        [TestCase]
-        public void SortMin_JaggedArray_SortedJaggedArray()
+        [Test, TestCaseSource(nameof(ExceptionsTestCases))]
+        public void Sort_ArrayIsNull_ThrowsArgumentNullException(IComparer<int[]> icomp)
         {
-            //arrange
-            int[][] jArray =
-            {
-                new int[] {-1},
-                new int[] {3, 3, 5, 6},
-                new int[] {2, 3, 0}
-            };
-            int[][] expected =
-            {
-                new int[] {-1},
-                new int[] {2, 3, 0},
-                new int[] {3, 3, 5, 6}
-            };
-            //act
-            BubbleSort.SortMin(jArray);
-            //assert
-            Assert.AreEqual(expected, jArray);
+            Assert.Throws<ArgumentNullException>(() => BubbleSort.Sort(null, icomp));
         }
 
         /// <summary>
-        /// A test for SortSum with null parameter.
+        /// A test for Sort using delegete with null parameter. 
         /// </summary>
-        [Test]
-        public void SortSum_ArrayIsNull_ThrowsArgumentNullException()
+        [Test, TestCaseSource(nameof(ExceptionsTestCasesDelegate))]
+        public void Sort_ArrayIsNullDelegate_ThrowsArgumentNullException(Func<int[], int[], int> sortingFunction)
         {
-            Assert.Throws<ArgumentNullException>(() => BubbleSort.SortSum(null));
+            Assert.Throws<ArgumentNullException>(() => BubbleSort.Sort(null, sortingFunction));
         }
 
         /// <summary>
-        /// A test for SortMax with null parameter.
+        /// A test for Sort using interface with null parameter.
         /// </summary>
-        [Test]
-        public void SortMax_ArrayIsNull_ThrowsArgumentNullException()
+        public void Sort_ICompIsNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => BubbleSort.SortMax(null));
+            int[][] jaggedArray = new int[][] { new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 } };
+            IComparer<int[]> icomp = null;
+            Assert.Throws<ArgumentNullException>(() => BubbleSort.Sort(jaggedArray, icomp));
         }
 
         /// <summary>
-        /// A test for SortMin with null parameter.
+        /// A test for Sort using delegate with null parameter.
         /// </summary>
-        [Test]
-        public void SortMin_ArrayIsNull_ThrowsArgumentNullException()
+        public void Sort_ICompIsNullDelegate_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => BubbleSort.SortMin(null));
+            int[][] jaggedArray = new int[][] { new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 } };
+            Func<int[],int[],int> sortingFunction = null;
+            Assert.Throws<ArgumentNullException>(() => BubbleSort.Sort(jaggedArray, sortingFunction));
         }
 
-        /// <summary>
-        /// A test for SortSum with empty array.
-        /// </summary>
-        [Test]
-        public void SortSum_EmptyArray_ThrowsArgumentException()
-        {
-            int[][] jaggedArray = new int[][] { };
-            Assert.Throws<ArgumentException>(()=>BubbleSort.SortSum(jaggedArray));
-        }
+        static int[][] jArray =
+       {
+                    new int[] {-1},
+                    new int[] {3, 3, 5, 6, 0},
+                    new int[] {-1, 2, 3}
+                };
 
-        /// <summary>
-        /// A test for SortMax with empty array.
-        /// </summary>
-        [Test]
-        public void SortMax_EmptyArray_ThrowsArgumentException()
+        static int[][] expectedAsc =
         {
-            int[][] jaggedArray = new int[][] { };
-            Assert.Throws<ArgumentException>(() => BubbleSort.SortMax(jaggedArray));
-        }
+                    new int[] {-1},
+                    new int[] {-1, 2, 3},
+                    new int[] {3, 3, 5, 6, 0}
+                };
 
-        /// <summary>
-        /// A test for SortMin with empty array.
-        /// </summary>
-        [Test]
-        public void SortMin_EmptyArray_ThrowsArgumentException()
+        static int[][] expectedDesc =
         {
-            int[][] jaggedArray = new int[][] { };
-            Assert.Throws<ArgumentException>(() => BubbleSort.SortMin(jaggedArray));
-        }
+                    new int[] { 3, 3, 5, 6, 0 },
+                    new int[] { -1, 2, 3 },
+                    new int[] { -1 }
+                };
 
-        /// <summary>
-        /// A test for SortSum with nested array is null.
-        /// </summary>
-        [Test]
-        public void SortSum_NestedArrayIsNull_ThrowsArgumentNullException()
-        {
-            int[][] jaggedArray = new int[][] 
+        static int[][] jaggedArray = new int[][]
             {
                null,
-               new int[] { 1, 2, 3}
+               new int[] { 1, 2, 3},
+               new int[] { }
             };
-            Assert.Throws<ArgumentNullException>(() => BubbleSort.SortSum(jaggedArray));
-        }
 
-        /// <summary>
-        /// A test for SortMax with nested array is null.
-        /// </summary>
-        [Test]
-        public void SortMax_NestedArrayIsNull_ThrowsArgumentNullException()
-        {
-            int[][] jaggedArray = new int[][]
+        static int[][] jaggedArrayAsc = new int[][]
             {
                null,
-               new int[] { 1, 2, 3}
-            };
-            Assert.Throws<ArgumentNullException>(() => BubbleSort.SortMax(jaggedArray));
-        }
-
-        /// <summary>
-        /// A test for SortMin with nested array is null.
-        /// </summary>
-        [Test]
-        public void SortMin_NestedArrayIsNull_ThrowsArgumentNullException()
-        {
-            int[][] jaggedArray = new int[][]
-            {
-               null,
-               new int[] { 1, 2, 3}
-            };
-            Assert.Throws<ArgumentNullException>(() => BubbleSort.SortMin(jaggedArray));
-        }
-
-        /// <summary>
-        /// A test for SortSum with nested array is empty.
-        /// </summary>
-        [Test]
-        public void SortSum_NestedArrayIsEmpty_ThrowsArgumentException()
-        {
-            int[][] jaggedArray = new int[][]
-            {
                new int[] { },
                new int[] { 1, 2, 3}
             };
-            Assert.Throws<ArgumentException>(() => BubbleSort.SortSum(jaggedArray));
+
+        static int[][] jaggedArrayDesc = new int[][]
+            {
+               new int[] { 1, 2, 3},
+               new int[] { },
+               null
+            };
+
+        /// <summary>
+        /// Data for Sort_JaggedArrayIcomparer_SortedJaggedArray() when nested array is null.
+        /// </summary>
+        static IEnumerable ValidTestCasesNull
+        {
+            get
+            {
+                yield return new TestCaseData(new SortBySumAscending(), jaggedArray, jaggedArrayAsc);
+                yield return new TestCaseData(new SortBySumDescending(), jaggedArray, jaggedArrayDesc);
+                yield return new TestCaseData(new SortByMaxAscending(), jaggedArray, jaggedArrayAsc);
+                yield return new TestCaseData(new SortByMaxDescending(), jaggedArray, jaggedArrayDesc);
+            }
         }
 
         /// <summary>
-        /// A test for SortMax with nested array is empty.
+        /// Data for Sort_JaggedArrayDelegate_SortedJaggedArray() when nested array is null.
         /// </summary>
-        [Test]
-        public void SortMax_NestedArrayIsEmpty_ThrowsArgumentException()
+        static IEnumerable ValidTestCasesNullDelegate
         {
-            int[][] jaggedArray = new int[][]
+            get
             {
-               new int[] { },
-               new int[] { 1, 2, 3}
-            };
-            Assert.Throws<ArgumentException>(() => BubbleSort.SortMax(jaggedArray));
+                yield return new TestCaseData(sortBySumAscendingDelegate, jaggedArray, jaggedArrayAsc);
+                yield return new TestCaseData(sortBySumdescDelegate, jaggedArray, jaggedArrayDesc);
+                yield return new TestCaseData(sortByMaxAscendingDelegate, jaggedArray, jaggedArrayAsc);
+                yield return new TestCaseData(sortByMaxDescendingDelegate, jaggedArray, jaggedArrayDesc);
+            }
         }
 
         /// <summary>
-        /// A test for SortMin with nested array is empty.
+        /// Data for Sort_JaggedArrayIComparer_SortedJaggedArray().
         /// </summary>
-        [Test]
-        public void SortMin_NestedArrayIsEmpty_ThrowsArgumentException()
+        static IEnumerable ValidTestCases
         {
-            int[][] jaggedArray = new int[][]
+            get
             {
-               new int[] { },
-               new int[] { 1, 2, 3}
-            };
-            Assert.Throws<ArgumentException>(() => BubbleSort.SortMin(jaggedArray));
+                yield return new TestCaseData(new SortBySumAscending(), jArray, expectedAsc);
+                yield return new TestCaseData(new SortBySumDescending(), jArray, expectedDesc);
+                yield return new TestCaseData(new SortByMaxAscending(), jArray, expectedAsc);
+                yield return new TestCaseData(new SortByMaxDescending(), jArray, expectedDesc);
+            }
+        }
+
+        /// <summary>
+        /// Data for Sort_JaggedArrayDelegate_SortedJaggedArray().
+        /// </summary>
+        static IEnumerable ValidTestCasesDelegate
+        {
+            get
+            {
+                yield return new TestCaseData(sortBySumAscendingDelegate, jArray, expectedAsc);
+                yield return new TestCaseData(sortBySumdescDelegate, jArray, expectedDesc);
+                yield return new TestCaseData(sortByMaxAscendingDelegate, jArray, expectedAsc);
+                yield return new TestCaseData(sortByMaxDescendingDelegate, jArray, expectedDesc);
+            }
+        }
+
+        /// <summary>
+        /// Data for exception tests with interface.
+        /// </summary>
+        static IComparer<int[]>[] ExceptionsTestCases =
+        {
+             new SortBySumAscending(),
+             new SortBySumDescending(),
+             new SortByMaxAscending(),
+             new SortByMaxDescending()
+        };
+
+        /// <summary>
+        /// Data for exception tests with delegate.
+        /// </summary>
+        static Func<int[],int[],int>[] ExceptionsTestCasesDelegate =
+        {
+             sortBySumAscendingDelegate,
+             sortBySumdescDelegate,
+             sortByMaxAscendingDelegate,
+             sortByMaxDescendingDelegate
+    };
+
+    }
+
+    public class SortBySumAscending : IComparer<int[]>
+    {
+        public int Compare(int[] firstArray, int[] secondArray)
+        {
+            if (ReferenceEquals(firstArray, null)) return -1;
+            if (ReferenceEquals(secondArray, null)) return 1;
+            if (firstArray.Length == 0) return -1;
+            if (secondArray.Length == 0) return 1;
+            return firstArray.Sum() - secondArray.Sum();
+        }
+    }
+
+    public class SortBySumDescending : IComparer<int[]>
+    {
+        public int Compare(int[] firstArray, int[] secondArray)
+        {
+            if (ReferenceEquals(firstArray, null)) return 1;
+            if (ReferenceEquals(secondArray, null)) return -1;
+            if (firstArray.Length == 0) return 1;
+            if (secondArray.Length == 0) return -1;
+            return secondArray.Sum() - firstArray.Sum();
+        }
+    }
+
+    public class SortByMaxAscending : IComparer<int[]>
+    {
+        public int Compare(int[] firstArray, int[] secondArray)
+        {
+            if (ReferenceEquals(firstArray, null)) return -1;
+            if (ReferenceEquals(secondArray, null)) return 1;
+            if (firstArray.Length == 0) return -1;
+            if (secondArray.Length == 0) return 1;
+            return firstArray.Max() - secondArray.Max();
+        }
+    }
+
+    public class SortByMaxDescending : IComparer<int[]>
+    {
+        public int Compare(int[] firstArray, int[] secondArray)
+        {
+            if (ReferenceEquals(firstArray, null)) return 1;
+            if (ReferenceEquals(secondArray, null)) return -1;
+            if (firstArray.Length == 0) return 1;
+            if (secondArray.Length == 0) return -1;
+            return secondArray.Max() - firstArray.Max();
         }
     }
 }
+

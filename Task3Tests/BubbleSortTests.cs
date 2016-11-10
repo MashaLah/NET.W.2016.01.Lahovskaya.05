@@ -40,7 +40,8 @@ namespace Task3Tests
         public void Sort_ICompIsNull_ThrowsArgumentNullException()
         {
             int[][] jaggedArray = new int[][] { new int[] { 1,2,3}, new int[] { 1,2,3} };
-            Assert.Throws<ArgumentNullException>(() => BubbleSort.Sort(jaggedArray, null));
+            IComparer<int[]> icomp = null;
+            Assert.Throws<ArgumentNullException>(() => BubbleSort.Sort(jaggedArray, icomp));
         }
 
         /// <summary>

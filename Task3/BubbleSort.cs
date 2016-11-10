@@ -17,13 +17,13 @@ namespace Task3
         public static void Sort(int[][] jaggedArr, IComparer<int[]> icomparator) 
         {
             if (jaggedArr == null)
-                throw new ArgumentNullException($"{nameof(jaggedArr)} is null");
+                throw new ArgumentNullException(nameof(jaggedArr));
 
             if (jaggedArr.Length == 0)
                 throw new ArgumentException($"Can't sort because {nameof(jaggedArr)} length = 0.");
 
             if (icomparator == null)
-                throw new ArgumentNullException($"{nameof(icomparator)} is null.");
+                throw new ArgumentNullException(nameof(icomparator));
 
             for (int i = 0; i < jaggedArr.Length; i++)
             {
@@ -35,6 +35,11 @@ namespace Task3
                     }
                 }
             }
+        }
+
+        public static void Sort(int[][] jaggedArr, Func<int[],int[], int> sortingFunction)
+        {
+            //Sort(jaggedArr,)
         }
 
         private static void SwapArrays(ref int[] firstArray,ref int[] secondArray)
