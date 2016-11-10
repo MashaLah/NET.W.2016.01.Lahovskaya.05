@@ -13,8 +13,14 @@ namespace Task2
         /// </summary>
         /// <param name="jaggedArr">Array of int[]</param>
         /// <param name="sortingFunction">Delegate to sorting function</param>
-        /// <exception>
-        /// Jagged array can't be null and can't have length = 0.
+        /// <exception cref="ArgumentNullException">
+        /// Jagged array can't be null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Jagged array can't have length = 0.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// sortingFunction can't be null.
         /// </exception>
         public static void Sort(int[][] jaggedArr, Func<int[],int[],int> sortingFunction)
         {
@@ -46,7 +52,7 @@ namespace Task2
         /// </summary>
         /// <param name="jaggedArr">Array of int[]</param>
         /// <param name="icomparator">Include sorting criteria</param>
-        /// <exception>
+        /// <exception cref="ArgumentNullException">
         /// IComparer<int[]> icomparator can't be null.
         /// </exception>
         public static void Sort(int[][] jaggedArr, IComparer<int[]> icomparator)
