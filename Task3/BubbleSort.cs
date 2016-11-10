@@ -39,7 +39,11 @@ namespace Task3
 
         public static void Sort(int[][] jaggedArr, Func<int[],int[], int> sortingFunction)
         {
-            //Sort(jaggedArr,)
+            if (sortingFunction == null)
+                throw new ArgumentNullException(nameof(sortingFunction));
+
+            Adapter adapter = new Adapter(sortingFunction);
+            Sort(jaggedArr,adapter);
         }
 
         private static void SwapArrays(ref int[] firstArray,ref int[] secondArray)

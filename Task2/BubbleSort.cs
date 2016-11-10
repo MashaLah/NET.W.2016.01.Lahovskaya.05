@@ -42,6 +42,8 @@ namespace Task2
         /// </summary>
         public static void Sort(int[][] jaggedArr, IComparer<int[]> icomparator)
         {
+            if (icomparator == null)
+                throw new ArgumentNullException(nameof(icomparator));
             Sort(jaggedArr, icomparator.Compare);
         }
 
