@@ -44,6 +44,12 @@ namespace Task3
         /// <param name="sortingFunction">Delegate, 2 input arrays of integer, return integer</param>
         public static void Sort(int[][] jaggedArr, Func<int[],int[], int> sortingFunction)
         {
+            if (jaggedArr == null)
+                throw new ArgumentNullException(nameof(jaggedArr));
+
+            if (jaggedArr.Length == 0)
+                throw new ArgumentException($"Can't sort because {nameof(jaggedArr)} length = 0.");
+
             if (sortingFunction == null)
                 throw new ArgumentNullException(nameof(sortingFunction));
 
