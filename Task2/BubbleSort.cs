@@ -11,8 +11,10 @@ namespace Task2
         /// <summary>
         /// Sorts jagget array.
         /// </summary>
+        /// <param name="jaggedArr">Array of int[]</param>
+        /// <param name="sortingFunction">Delegate to sorting function</param>
         /// <exception>
-        /// Neither jagged array nor nested array can be null and can have length = 0.
+        /// Jagged array can't be null and can't have length = 0.
         /// </exception>
         public static void Sort(int[][] jaggedArr, Func<int[],int[],int> sortingFunction)
         {
@@ -37,9 +39,16 @@ namespace Task2
             }
         }
 
+
+
         /// <summary>
         /// Invoke public static void Sort(int[][] jaggedArr, Func<int[],int[],int> sortingFunction).
         /// </summary>
+        /// <param name="jaggedArr">Array of int[]</param>
+        /// <param name="icomparator">Include sorting criteria</param>
+        /// <exception>
+        /// IComparer<int[]> icomparator can't be null.
+        /// </exception>
         public static void Sort(int[][] jaggedArr, IComparer<int[]> icomparator)
         {
             if (icomparator == null)
