@@ -26,12 +26,34 @@ namespace Task3Tests
         }
 
         /// <summary>
+        /// A test for Sort() with valid data. Delegate parameter.
+        /// </summary>
+        [Test, TestCaseSource(nameof(ValidTestCasesDelegate))]
+        [TestCaseSource(nameof(ValidTestCasesNullDelegate))]
+        public void Sort_JaggedArrayDelegate_SortedJaggedArray(Func<int[], int[], int> sortingFunction, int[][] jArray, int[][] expected)
+        {
+            //act
+            BubbleSort.Sort(jArray, sortingFunction);
+            //assert
+            Assert.AreEqual(expected, jArray);
+        }
+
+        /// <summary>
         /// A test for Sort with null parameter.
         /// </summary>
         [Test,TestCaseSource(nameof(ExceptionsTestCases))]
         public void Sort_ArrayIsNull_ThrowsArgumentNullException(IComparer<int[]> icomp)
         {
             Assert.Throws<ArgumentNullException>(() => BubbleSort.Sort(null, icomp));
+        }
+
+        /// <summary>
+        /// A test for Sort using delegete with null parameter. 
+        /// </summary>
+        [Test, TestCaseSource(nameof(ExceptionsTestCasesDelegate))]
+        public void Sort_ArrayIsNullDelegate_ThrowsArgumentNullException(Func<int[], int[], int> sortingFunction)
+        {
+            Assert.Throws<ArgumentNullException>(() => BubbleSort.Sort(null, sortingFunction));
         }
 
         /// <summary>
@@ -45,6 +67,16 @@ namespace Task3Tests
         }
 
         /// <summary>
+        /// A test for Sort using delegate with null parameter.
+        /// </summary>
+        public void Sort_ICompIsNullDelegate_ThrowsArgumentNullException()
+        {
+            int[][] jaggedArray = new int[][] { new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 } };
+            Func<int[], int[], int> sortingFunction = null;
+            Assert.Throws<ArgumentNullException>(() => BubbleSort.Sort(jaggedArray, sortingFunction));
+        }
+
+        /// <summary>
         /// A test for Sort with empty array.
         /// </summary>
         [Test, TestCaseSource(nameof(ExceptionsTestCases))]
@@ -53,6 +85,26 @@ namespace Task3Tests
             int[][] jaggedArray = new int[][] { };
             Assert.Throws<ArgumentException>(() => BubbleSort.Sort(jaggedArray, icomp));
         }
+
+        /// <summary>
+        /// A test for Sort with empty array.
+        /// </summary>
+        [Test, TestCaseSource(nameof(ExceptionsTestCasesDelegate))]
+        public void Sort_EmptyArrayDelegate_ThrowsArgumentException(Func<int[], int[], int> sortingFunction)
+        {
+            int[][] jaggedArray = new int[][] { };
+            Assert.Throws<ArgumentException>(() => BubbleSort.Sort(jaggedArray, sortingFunction));
+        }
+
+        static SortBySumAscending sortBySumAscending = new SortBySumAscending();
+        static SortBySumDescending sortBySumdesc = new SortBySumDescending();
+        static SortByMaxAscending sortByMaxAscending = new SortByMaxAscending();
+        static SortByMaxDescending sortByMaxDescending = new SortByMaxDescending();
+
+        static Func<int[], int[], int> sortBySumAscendingDelegate = sortBySumAscending.Compare;
+        static Func<int[], int[], int> sortBySumdescDelegate = sortBySumdesc.Compare;
+        static Func<int[], int[], int> sortByMaxAscendingDelegate = sortByMaxAscending.Compare;
+        static Func<int[], int[], int> sortByMaxDescendingDelegate = sortByMaxDescending.Compare;
 
         static int[][] jArray =
         {
@@ -111,6 +163,20 @@ namespace Task3Tests
         }
 
         /// <summary>
+        /// Data for Sort_JaggedArrayDelegate_SortedJaggedArray() when nested array is null.
+        /// </summary>
+        static IEnumerable ValidTestCasesNullDelegate
+        {
+            get
+            {
+                yield return new TestCaseData(sortBySumAscendingDelegate, jaggedArray, jaggedArrayAsc);
+                yield return new TestCaseData(sortBySumdescDelegate, jaggedArray, jaggedArrayDesc);
+                yield return new TestCaseData(sortByMaxAscendingDelegate, jaggedArray, jaggedArrayAsc);
+                yield return new TestCaseData(sortByMaxDescendingDelegate, jaggedArray, jaggedArrayDesc);
+            }
+        }
+
+        /// <summary>
         /// Data for Sort_JaggedArray_SortedJaggedArray().
         /// </summary>
         static IEnumerable ValidTestCases
@@ -123,6 +189,28 @@ namespace Task3Tests
                 yield return new TestCaseData(new SortByMaxDescending(), jArray, expectedDesc);
             }
         }
+
+        /// <summary>
+        /// Data for Sort_JaggedArrayDelegate_SortedJaggedArray().
+        /// </summary>
+        static IEnumerable ValidTestCasesDelegate
+        {
+            get
+            {
+                yield return new TestCaseData(sortBySumAscendingDelegate, jArray, expectedAsc);
+                yield return new TestCaseData(sortBySumdescDelegate, jArray, expectedDesc);
+                yield return new TestCaseData(sortByMaxAscendingDelegate, jArray, expectedAsc);
+                yield return new TestCaseData(sortByMaxDescendingDelegate, jArray, expectedDesc);
+            }
+        }
+
+        static Func<int[], int[], int>[] ExceptionsTestCasesDelegate =
+{
+             sortBySumAscendingDelegate,
+             sortBySumdescDelegate,
+             sortByMaxAscendingDelegate,
+             sortByMaxDescendingDelegate
+    };
 
         /// <summary>
         /// Data for exception tests. 

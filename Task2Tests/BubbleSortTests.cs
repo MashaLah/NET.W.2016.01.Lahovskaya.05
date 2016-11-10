@@ -87,6 +87,26 @@ namespace Task2Tests
             Assert.Throws<ArgumentNullException>(() => BubbleSort.Sort(jaggedArray, sortingFunction));
         }
 
+        /// <summary>
+        /// A test for Sort with empty array.
+        /// </summary>
+        [Test, TestCaseSource(nameof(ExceptionsTestCases))]
+        public void Sort_EmptyArray_ThrowsArgumentException(IComparer<int[]> icomp)
+        {
+            int[][] jaggedArray = new int[][] { };
+            Assert.Throws<ArgumentException>(() => BubbleSort.Sort(jaggedArray, icomp));
+        }
+
+        /// <summary>
+        /// A test for Sort with empty array.
+        /// </summary>
+        [Test, TestCaseSource(nameof(ExceptionsTestCasesDelegate))]
+        public void Sort_EmptyArrayDelegate_ThrowsArgumentException(Func<int[],int[],int> sortingFunction)
+        {
+            int[][] jaggedArray = new int[][] { };
+            Assert.Throws<ArgumentException>(() => BubbleSort.Sort(jaggedArray, sortingFunction));
+        }
+
         static int[][] jArray =
        {
                     new int[] {-1},
