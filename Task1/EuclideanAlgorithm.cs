@@ -183,26 +183,41 @@ namespace Task1
         public static int GCDSteinMethod(out long time, params int[] array)=>
             GCDMethod(out time, SteinMethod, array);
 
+        /// <summary>
+        /// GDC for 2 numbers.
+        /// </summary>
+        /// <param name="firstNumber">Int number</param>
+        /// <param name="secondNumber">Int number</param>
+        /// <param name="GCDFunction">Algorithm</param>
+        /// <returns>GDC</returns>
         private static int GCDMethod(int firstNumber, int secondNumber, Func<int, int, int> GCDFunction)
         {
             CheckExceptionsForTwo(firstNumber, secondNumber);
             return GCDFunction(firstNumber, secondNumber);
         }
 
+        /// <summary>
+        /// GDC for array of numbers
+        /// </summary>
+        /// <param name="GDCFunction">Algorithm</param>
+        /// <param name="array">Array of integer</param>
+        /// <returns>GDC</returns>
         private static int GCDMethod(Func<int, int, int> GDCFunction, params int[] array)
         {
             CheckExceptions(array);
-
             int result = array[0];
-
             for (int i = 1; i < array.Length; i++)
-            {
                 result = GCDMethod(result, array[i], GDCFunction);
-            }
-
             return Math.Abs(result);
         }
 
+        /// <summary>
+        /// GDC for array of numbers
+        /// </summary>
+        /// <param name="time">Time of runnung</param>
+        /// <param name="GDCFunction">Algorithm</param>
+        /// <param name="array">Array of integer</param>
+        /// <returns>GDC</returns>
         public static int GCDMethod(out long time, Func<int, int, int> GDCFunction, params int[] array)
         {
             CheckExceptions(array);
@@ -214,6 +229,14 @@ namespace Task1
             return result;
         }
 
+        /// <summary>
+        /// GDC for 2 numbers with time
+        /// </summary>
+        /// <param name="firstNumber">Int number</param>
+        /// <param name="secondNumber">Int number</param>
+        /// <param name="GCDFunction">Algotithm</param>
+        /// <param name="time">Time of running</param>
+        /// <returns>GDC</returns>
         private static int GCDMethod(int firstNumber, int secondNumber, Func<int, int, int> GCDFunction, out long time)
         {
             CheckExceptionsForTwo(firstNumber, secondNumber);
@@ -226,12 +249,29 @@ namespace Task1
             return result;
         }
 
+        /// <summary>
+        /// GDC for 3 numbers
+        /// </summary>
+        /// <param name="firstNumber">Int number</param>
+        /// <param name="secondNumber">Int number</param>
+        /// <param name="thirdNumber">Int number</param>
+        /// <param name="GCDFunction">Algorithm</param>
+        /// <returns>GDC</returns>
         private static int GCDMethod(int firstNumber, int secondNumber, int thirdNumber, Func<int, int, int> GCDFunction)
         {
             CheckExceptionsForThree(firstNumber, secondNumber, thirdNumber);
             return GCDFunction(GCDFunction(firstNumber, secondNumber), thirdNumber);
         }
 
+        /// <summary>
+        /// Gdc for 3 numbers with time
+        /// </summary>
+        /// <param name="firstNumber">Int number</param>
+        /// <param name="secondNumber">Int number</param>
+        /// <param name="thirdNumber">Int number</param>
+        /// <param name="GCDFunction">Algorithm</param>
+        /// <param name="time">Time of running</param>
+        /// <returns>GDC</returns>
         private static int GCDMethod(int firstNumber, int secondNumber, int thirdNumber, Func<int, int, int> GCDFunction, out long time)
         {
             CheckExceptionsForThree(firstNumber, secondNumber, thirdNumber);
