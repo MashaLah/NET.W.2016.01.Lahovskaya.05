@@ -85,6 +85,24 @@ namespace Task3
             firstArray = secondArray;
             secondArray = temp;
         }
+
+        /// <summary>
+        /// Delegate to interface adapter.
+        /// </summary>
+        private class Adapter : IComparer<int[]>
+        {
+            Func<int[], int[], int> sortingFunction;
+
+            public Adapter(Func<int[], int[], int> sortingFunction)
+            {
+                this.sortingFunction = sortingFunction;
+            }
+
+            public int Compare(int[] firstArray, int[] secondArray)
+            {
+                return sortingFunction(firstArray, secondArray);
+            }
+        }
     }
 
     public interface IComp
